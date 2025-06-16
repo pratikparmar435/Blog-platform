@@ -10,6 +10,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.engine("ejs", engine);
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 main().catch((err) => console.log(err));
 
 async function main() {

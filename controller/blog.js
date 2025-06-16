@@ -5,4 +5,10 @@ let getAllBlogs = async (req, res) => {
   res.render("blog/home", { allBlogs });
 };
 
-module.exports = { getAllBlogs };
+let createNewBlog = async (req, res) => {
+  let newBlog = new Blog(req.body);
+  await newBlog.save();
+  res.redirect("/blogs");
+};
+
+module.exports = { getAllBlogs, createNewBlog };
