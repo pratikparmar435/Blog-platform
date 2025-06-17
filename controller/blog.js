@@ -17,4 +17,12 @@ let showSingleBlog = async (req, res) => {
   res.render("blog/show.ejs", { showBlog });
 };
 
-module.exports = { getAllBlogs, createNewBlog, showSingleBlog };
+let editBlog = async (req, res) => {
+  let { id } = req.params;
+  let editedBlog = req.body;
+  editedBlog.updatedAt = new Date();
+  await Blog.findByIdAndUpdate(id, editedBlog);
+  res.redirect("/blogs");
+};
+
+module.exports = { getAllBlogs, createNewBlog, showSingleBlog, editBlog };

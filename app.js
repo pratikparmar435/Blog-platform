@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const engine = require("ejs-mate");
 const blogRoutes = require("./routes/blogRoute");
+const methodOverride = require("method-override");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -14,6 +15,7 @@ app.engine("ejs", engine);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride("_method"));
 
 main().catch((err) => console.log(err));
 
