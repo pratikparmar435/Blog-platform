@@ -25,4 +25,16 @@ let editBlog = async (req, res) => {
   res.redirect("/blogs");
 };
 
-module.exports = { getAllBlogs, createNewBlog, showSingleBlog, editBlog };
+let deleteBlog = async (req, res) => {
+  let { id } = req.params;
+  await Blog.findByIdAndDelete(id);
+  res.redirect("/blogs");
+};
+
+module.exports = {
+  getAllBlogs,
+  createNewBlog,
+  showSingleBlog,
+  editBlog,
+  deleteBlog,
+};

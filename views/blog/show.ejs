@@ -1,6 +1,7 @@
 <% layout("layouts/boilerplate") -%>
 <div class="container show-block col-9">
   <h2>&bull; <%= showBlog.title %></h2>
+  <br>
   <h6>
     <%= showBlog.content %>
   </h6>
@@ -12,6 +13,9 @@
     Updated At: <%= showBlog.updatedAt.toString().split(" ").slice(1,4).join("-") %> ,
     <%= showBlog.updatedAt.toString().split(" ")[4] %>
   </p>
-  <a href="/blogs/<%= showBlog._id %>/edit" class="btn btn-outline-secondary">Edit</a>
-  <a href="/blogs/<%= showBlog._id %>/delete" class="btn btn-outline-danger">Delete</a>
+  <a href="/blogs/<%= showBlog._id %>/edit" class="btn btn-outline-secondary">Edit</a>  
+  <br><br>
+  <form action="/blogs/<%= showBlog._id %>?_method=DELETE" method="post" >
+    <button class="btn btn-outline-danger">Delete</button>
+  </form>
 </div>

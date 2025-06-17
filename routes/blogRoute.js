@@ -7,6 +7,7 @@ const {
   createNewBlog,
   showSingleBlog,
   editBlog,
+  deleteBlog,
 } = require("../controller/blog");
 
 router.route("/").get(getAllBlogs);
@@ -28,5 +29,7 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 router.route("/:id").put(editBlog);
+
+router.route("/:id").delete(deleteBlog);
 
 module.exports = router;
