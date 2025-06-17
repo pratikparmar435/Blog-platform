@@ -1,8 +1,13 @@
 <% layout("layouts/boilerplate") %> <% for(let blog of allBlogs) {%>
-<div class="card mb-3">
-  <div class="card-body">
-    <h5 class="card-title"><%= blog.title %></h5>
-    <p class="card-text"><%= blog.content %></p>
+<a href="/blogs/<%= blog._id %>/show" class="show-route-a">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= blog.title %></h5>
+      <p class="card-text"><%= blog.content %></p>
+      <p class="card-text">
+        <%= blog.createdAt.toString().split(" ").slice(0,4).join("-") %>
+      </p>
+    </div>
   </div>
-</div>
+</a>
 <% } %>

@@ -13,6 +13,8 @@ app.engine("ejs", engine);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
 main().catch((err) => console.log(err));
 
 async function main() {
@@ -20,6 +22,10 @@ async function main() {
 }
 
 app.use("/blogs", blogRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Working");
+});
 
 app.listen(port, () => {
   console.log("Server Activated!");

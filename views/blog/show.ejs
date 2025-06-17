@@ -1,0 +1,15 @@
+<% layout("layouts/boilerplate") -%>
+<div class="container show-block col-9">
+  <h2>&bull; <%= showBlog.title %></h2>
+  <h6>
+    <%= showBlog.content %>
+  </h6>
+  <p>
+    Created At: <%= showBlog.createdAt.toString().split(" ").slice(1,4).join("-") %> ,
+    <%= showBlog.createdAt.toString().split(" ")[4] %>
+  </p>
+   <p>
+    Updated At: <%= showBlog.updatedAt.toString().split(" ").slice(1,4).join("-") %> ,
+    <%= showBlog.updatedAt.toString().split(" ")[4] %>
+  </p>
+</div>

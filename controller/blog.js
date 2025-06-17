@@ -11,4 +11,10 @@ let createNewBlog = async (req, res) => {
   res.redirect("/blogs");
 };
 
-module.exports = { getAllBlogs, createNewBlog };
+let showSingleBlog = async (req, res) => {
+  let { id } = req.params;
+  let showBlog = await Blog.findById(id);
+  res.render("blog/show.ejs", { showBlog });
+};
+
+module.exports = { getAllBlogs, createNewBlog, showSingleBlog };
