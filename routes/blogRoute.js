@@ -40,12 +40,17 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let toEditBlog = await Blog.findById(id);
+    if (!toEditBlog) {
+      req.flash("error", "NO Blog found!");
+      return res.redirect("/blogs");
+    }
     res.render("blog/edit", { toEditBlog });
   })
 );
 
 router.route("/:id").put(validateBlog, wrapAsync(editBlog));
 
+//delete route
 router.route("/:id").delete(wrapAsync(deleteBlog));
 
 module.exports = router;

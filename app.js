@@ -7,6 +7,20 @@ const engine = require("ejs-mate");
 const blogRoutes = require("./routes/blogRoute");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/expressError");
+const session = require("express-session");
+const secret = "iAmBatMan";
+const flash = require("connect-flash");
+
+const sessionOption = {
+  secret: secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -17,6 +31,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
+app.use(session(sessionOption));
+app.use(flash());
+
+//flash middleware
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.update = req.flash("update");
+  res.locals.deletion = req.flash("deletion");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 main().catch((err) => console.log(err));
 
