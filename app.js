@@ -10,6 +10,7 @@ const ExpressError = require("./utils/expressError");
 const session = require("express-session");
 const secret = "iAmBatMan";
 const flash = require("connect-flash");
+const authRoutes = require("./routes/authRoute");
 
 const sessionOption = {
   secret: secret,
@@ -50,6 +51,7 @@ async function main() {
 }
 
 app.use("/blogs", blogRoutes);
+app.use("/", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Working");

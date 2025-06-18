@@ -7,4 +7,10 @@ const blogSchema = joi.object({
   updatedAt: joi.date(),
 });
 
-module.exports = { blogSchema };
+const userSchema = joi.object({
+  username: joi.string().required(),
+  email: joi.string().required(),
+  password: joi.string().required(),
+});
+
+module.exports = { blogSchema, userSchema };
