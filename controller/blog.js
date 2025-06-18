@@ -14,7 +14,7 @@ let createNewBlog = async (req, res) => {
 let showSingleBlog = async (req, res) => {
   let { id } = req.params;
   let showBlog = await Blog.findById(id);
-  res.render("blog/show.ejs", { showBlog });
+  res.render("blog/show", { showBlog });
 };
 
 let editBlog = async (req, res) => {
@@ -38,4 +38,3 @@ module.exports = {
   editBlog,
   deleteBlog,
 };
-

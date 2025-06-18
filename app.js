@@ -6,6 +6,7 @@ const path = require("path");
 const engine = require("ejs-mate");
 const blogRoutes = require("./routes/blogRoute");
 const methodOverride = require("method-override");
+const ExpressError = require("./utils/expressError");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -31,4 +32,14 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
   console.log("Server Activated!");
+});
+
+//Error handlers
+app.use((req, res, next) => {
+  next(new ExpressError(404, "Page not found!"));
+});
+
+app.use((err, req, res, next) => {
+  let { status = 500, message = "Something went wrong try again!" } = err;
+  res.status(status).render("error.ejs", { message });
 });
