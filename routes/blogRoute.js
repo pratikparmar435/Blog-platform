@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Blog = require("../models/blogs");
 const wrapAsync = require("../utils/wrapAsync");
-const { blogSchema } = require("../schema");
-const ExpressError = require("../utils/expressError");
+const { validateBlog, verifyUser } = require("../middleware");
 
 const {
   getAllBlogs,
@@ -13,30 +12,22 @@ const {
   deleteBlog,
 } = require("../controller/blog");
 
-const validateBlog = (req, res, next) => {
-  let { error } = blogSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
-
-router.route("/").get(wrapAsync(getAllBlogs));
+router.route("/").get(verifyUser, wrapAsync(getAllBlogs));
 
 //new route
-router.get("/new", (req, res) => {
+router.get("/new", verifyUser, (req, res) => {
   res.render("blog/new");
 });
-router.route("/").post(validateBlog, wrapAsync(createNewBlog));
+
+router.route("/").post(verifyUser, validateBlog, wrapAsync(createNewBlog));
 
 //show route
-router.route("/:id/show").get(wrapAsync(showSingleBlog));
+router.route("/:id/show").get(verifyUser, wrapAsync(showSingleBlog));
 
 //edit route
 router.get(
   "/:id/edit",
+  verifyUser,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let toEditBlog = await Blog.findById(id);
@@ -48,9 +39,9 @@ router.get(
   })
 );
 
-router.route("/:id").put(validateBlog, wrapAsync(editBlog));
+router.route("/:id").put(verifyUser, validateBlog, wrapAsync(editBlog));
 
 //delete route
-router.route("/:id").delete(wrapAsync(deleteBlog));
+router.route("/:id").delete(verifyUser, wrapAsync(deleteBlog));
 
 module.exports = router;
