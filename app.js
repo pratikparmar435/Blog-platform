@@ -41,6 +41,7 @@ app.use((req, res, next) => {
   res.locals.update = req.flash("update");
   res.locals.deletion = req.flash("deletion");
   res.locals.error = req.flash("error");
+  res.locals.currentUser = req.session.userId || null;
   next();
 });
 

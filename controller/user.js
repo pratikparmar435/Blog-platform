@@ -1,7 +1,5 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const secretKey = "catLover";
 
 //sign-up route logic
 let createUser = async (req, res) => {
@@ -36,4 +34,14 @@ let loginUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser };
+let logoutUser = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("Logout error:", err);
+      return res.redirect("/");
+    }
+    res.redirect("/login");
+  });
+};
+
+module.exports = { createUser, loginUser, logoutUser };

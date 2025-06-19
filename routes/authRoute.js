@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
-const { createUser, loginUser } = require("../controller/user");
+const { createUser, loginUser, logoutUser } = require("../controller/user");
 
 //signup routes
 router.get("/signup", (req, res) => {
@@ -17,3 +17,6 @@ router.get("/login", (req, res) => {
 
 router.route("/login").post(wrapAsync(loginUser));
 module.exports = router;
+
+//logout routes
+router.route("/logout").post(logoutUser);

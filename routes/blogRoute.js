@@ -12,7 +12,7 @@ const {
   deleteBlog,
 } = require("../controller/blog");
 
-router.route("/").get(verifyUser, wrapAsync(getAllBlogs));
+router.route("/").get(wrapAsync(getAllBlogs));
 
 //new route
 router.get("/new", verifyUser, (req, res) => {
@@ -22,7 +22,7 @@ router.get("/new", verifyUser, (req, res) => {
 router.route("/").post(verifyUser, validateBlog, wrapAsync(createNewBlog));
 
 //show route
-router.route("/:id/show").get(verifyUser, wrapAsync(showSingleBlog));
+router.route("/:id/show").get(wrapAsync(showSingleBlog));
 
 //edit route
 router.get(

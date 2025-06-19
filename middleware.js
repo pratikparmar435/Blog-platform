@@ -1,5 +1,3 @@
-const secretKey = "catLover";
-const jwt = require("jsonwebtoken");
 const { blogSchema } = require("./schema");
 const ExpressError = require("./utils/expressError");
 
